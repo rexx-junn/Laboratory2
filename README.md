@@ -1,185 +1,195 @@
-Modular Media Streaming Suite
-Project Overview
 
-The Modular Media Streaming Suite is a refactored version of a legacy media player, designed to demonstrate the use of structural design patterns in creating a flexible, maintainable, and scalable system. This project supports multiple media sources, feature decorators, playlist composition, and rendering strategies. It serves as a laboratory exercise for Integrative Programming focusing on software architecture and design patterns.
+# Modular Media Streaming Suite
 
-The goal is to evolve a simple monolithic media player into a modular streaming suite that supports dynamic extensions and adaptability through pattern-based refactoring.
+## Project Overview
 
-Key Structural Design Patterns
-Pattern	Implementation	Purpose
-Decorator Pattern	Feature decorators (Caching, Equalizer, Subtitles, Watermark)	Dynamically add features to existing media without altering core classes
-Composite Pattern	PlaylistComposite class	Treat individual media files and playlists uniformly
-Adapter Pattern	Media source adapters for file, API, and HLS	Allow incompatible media sources to integrate into the unified system
-Facade Pattern	MediaEngine class	Provide a single entry point to complex subsystems for simplified use
-Core Features
-Media Source Management
+The Modular Media Streaming Suite is an educational and practical implementation of a professional media streaming platform. Built with clean architecture principles, it demonstrates how structural design patterns can be effectively applied to create maintainable, scalable, and extensible software systems.
 
-Local file playback for media stored on disk.
+## Key Structural Design Patterns
 
-HLS streaming for online content.
+| Pattern           | Implementation                                                | Purpose                                                      |
+| ----------------- | ------------------------------------------------------------- | ------------------------------------------------------------ |
+| Decorator Pattern | Feature decorators (Caching, Equalizer, Subtitles, Watermark) | Dynamic feature enhancement without modifying core classes   |
+| Composite Pattern | PlaylistComposite for hierarchical media management           | Unified interface for individual and composite media objects |
+| Adapter Pattern   | Media source adapters for different input formats             | Interface compatibility between different media sources      |
+| Facade Pattern    | MediaEngine as unified interface to complex subsystem         | Simplified interface to complex media processing system      |
 
-API-based streaming integration for remote sources.
+## Core Features
 
-Proxy and caching to reduce redundant data fetching.
+### Media Source Management
 
-Feature Decorators
+* Local Media Sources: High-performance file-based media playback with optimized I/O operations
+* HLS Streaming Integration: Full HTTP Live Streaming (HLS) support for adaptive bitrate streaming
+* API-Based Sources: RESTful API integration for external media content delivery
+* Cached Media Sources: Intelligent caching layer for improved performance and reduced bandwidth
 
-Caching for faster access to frequently played media.
+### Advanced Decorators
 
-Audio equalization for enhanced sound control.
+* Intelligent Caching: Multi-level caching system with LRU eviction policies
+* Real-time Audio Processing: Advanced equalizer with frequency domain analysis
+* Dynamic Subtitle Rendering: Multi-format subtitle support with real-time positioning
+* Professional Watermarking: Configurable visual overlays with transparency support
 
-Subtitles overlay system for readable text on video.
+### Media Processing Architecture
 
-Watermarking for content branding.
+* Unified Media Interface: Consistent interface for all media sources through Facade pattern
+* Extensible Decorator Chain: Multiple decorators can be chained for enhanced functionality
+* Hierarchical Playlist Management: Composite pattern enables nested playlist structures
 
-Playlist System
+### Playlist Management System
 
-Composite playlist that can contain both single files and sub-playlists.
+* Hierarchical Playlist Structure: Nested playlist support with unlimited depth
+* Dynamic Playlist Construction: Runtime playlist building with real-time updates
+* Intelligent Playback Control: Advanced sequencing with shuffle and repeat modes
+* Playlist Persistence: Save and restore playlist configurations
 
-Recursive playback of nested playlists.
+## System Architecture
 
-Basic playback controls (play, pause, stop).
+### Core Components
 
-Rendering Strategy
+| Component            | Responsibility                                 | Design Pattern    |
+| -------------------- | ---------------------------------------------- | ----------------- |
+| MediaEngine          | Central orchestration and lifecycle management | Facade Pattern    |
+| MediaSource          | Abstract media source interface                | Adapter Pattern   |
+| PlaylistComposite    | Hierarchical media collection management       | Composite Pattern |
+| MediaSourceDecorator | Feature enhancement wrapper                    | Decorator Pattern |
+| MediaFormatAdapter   | Interface compatibility for different formats  | Adapter Pattern   |
 
-Supports runtime switching between hardware and software rendering engines.
+## Running the Application
 
-Allows flexible performance tuning depending on device capability.
+### 1. Compile the Project
 
-System Architecture
-Core Components
-Component	Description	Pattern Used
-MediaEngine	Main controller that manages playback, rendering, and sources.	Facade
-MediaSource	Abstract class for all media types.	Adapter
-PlaylistComposite	Manages multiple media objects as one.	Composite
-MediaSourceDecorator	Base for all feature extensions (e.g., Equalizer, Subtitles).	Decorator
-Renderer	Interface for switching between rendering methods.	Strategy (optional extension)
-Architecture Overview (Summary)
-
-The system follows a modular architecture, where each component can be extended or replaced independently. MediaEngine acts as a facade that communicates with MediaSource objects, which can either be simple files or complex composites of multiple sources. The Decorator pattern is applied to add extra behaviors at runtime without modifying existing code.
-
-A docs/ folder contains UML and sequence diagrams that visualize the structure and flow:
-
-Class Diagram: Shows the relationship between MediaSource, MediaEngine, and decorators.
-
-Sequence Diagram: Demonstrates the processes of playing media and applying decorators.
-
-Running the Application
-1. Compile the Project
+```bash
 javac *.java
+```
 
+Or using Maven:
 
-or, if using Maven:
-
+```bash
 mvn compile
+```
 
-2. Run the Main Program
+### 2. Run the Main Application
+
+```bash
 java Main
+```
 
-3. Example Usage
+Or run with a specific media file:
+
+```bash
+java Main path/to/your/video.mp4
+```
+
+### 3. Run the Presentation Demo
+
+```bash
+java -cp . PresentationDemo
+java -cp . DemoScenarios
+```
+
+## Demo Scenarios
+
+### Basic Playlist Demo
+
+```bash
+java -cp . DemoScenarios basicPlaylist
+java -cp . DemoScenarios decoratorChain
+java -cp . DemoScenarios rendererSwitch
+java -cp . DemoScenarios fullWorkflow
+```
+
+### Interactive Demo Menu
+
+```
 === Modular Media Streaming Suite ===
 1. Add Local Media Source
-2. Add HLS Stream Source
+2. Add HLS Stream Source  
 3. Add API Media Source
-4. Apply Decorators
+4. Configure Decorators
 5. Switch Rendering Engine
 6. Play Current Playlist
 7. Show System Status
 8. Exit
+```
 
-Testing the System
-Manual Tests
-# Test the basic playback
-java -cp . Main
+## Testing
 
-# Test decorator stacking
-java -cp . DemoDecorator
+### Run All Tests
 
-# Test composite playlist structure
-java -cp . DemoPlaylist
+```bash
+javac -cp . test/*.java
+java -cp . TestRunner
+java -cp . IntegrationTestRunner
+```
 
-Integration Tests
-# Run all test classes (if provided)
-javac -cp . tests/*.java
-java -cp . tests.TestRunner
+### Manual Testing Scenarios
 
-Deliverables
+```bash
+java -cp . TestScenarios basicFunctionality
+java -cp . TestScenarios decoratorPatterns
+java -cp . TestScenarios compositePattern
+java -cp . TestScenarios adapterPattern
+```
 
-Your repository should include the following:
+### Performance Testing
 
-1. Source Code Repository
+```bash
+java -cp . PerformanceTest
+java -Xmx2g -cp . MemoryAnalysis
+java -cp . RenderingPerformanceTest
+```
 
-All .java files inside the src/ directory.
+## Educational Value
 
-A README.md file (this one).
+This project serves as a comprehensive laboratory for Integrative Programming 2, demonstrating:
 
-Meaningful commit history showing development progress.
+* Real-world Pattern Application: How design patterns solve actual software engineering challenges
+* Architecture Decision Making: Trade-offs between different architectural approaches
+* Code Organization: Professional code structure and separation of concerns
+* Extensibility Design: Building systems that can grow and adapt to new requirements
 
-2. Documentation Folder (docs/)
+### Learning Outcomes
 
-architecture.md – Short overview of the system structure.
+* Understanding of structural design patterns in practice
+* Experience with clean architecture principles
+* Knowledge of media streaming system design
+* Skills in creating extensible, maintainable codebases
 
-uml-diagram.png – UML class diagram showing class relationships.
+## Development Guidelines
 
-sequence-diagram-play-media.png – Sequence diagram for the play flow.
+### Code Quality Standards
 
-sequence-diagram-decorator.png – Sequence diagram for decorator flow.
+* SOLID Principles
+* Clean Code with meaningful names and small functions
+* Consistent use of design patterns
+* Comprehensive error handling and recovery
 
-design-rationale.md – Explanation (max 800 words) of the patterns used and why.
+### Extension Points
 
-3. Video Demonstration (max 12 minutes)
+* Custom Media Sources: Implement MediaSource interface for new source types
+* Custom Decorators: Extend MediaSourceDecorator for new features
+* Custom Renderers: Implement Renderer interface for specialized rendering
+* Custom Playlist Items: Extend PlaylistItem for specialized media handling
 
-60–90 seconds: Explain architecture using diagrams.
+## Documentation
 
-4–6 minutes: Code walkthrough showing patterns in use.
+All documentation files are in the `docs/` folder:
 
-2–3 minutes: Live demo of playlist, decorator toggling, and renderer switching.
+* `docs/architecture.md`
+* `docs/uml-diagrams.md`
+* `docs/sequence-diagrams.md`
+* `docs/design-rationale.md`
 
-60–90 seconds: Reflection on what could be improved.
+## Contributing
 
-Development Guidelines
-Code Quality
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-Follow SOLID principles for maintainable code.
+## License
 
-Use meaningful commit messages (e.g., “Added Decorator pattern for subtitles”).
+This project is licensed under the MIT License.
 
-Keep methods small and well-documented.
-
-Handle exceptions gracefully with meaningful error messages.
-
-Recommended Folder Structure
-/src
-    /MediaEngine.java
-    /MediaSource.java
-    /PlaylistComposite.java
-    /Decorators/
-        AudioEqualizer.java
-        SubtitleRenderer.java
-        Watermark.java
-    /Adapters/
-        LocalFileAdapter.java
-        HLSStreamAdapter.java
-        ApiMediaAdapter.java
-/docs
-    architecture.md
-    uml-diagram.png
-    sequence-diagram-play-media.png
-    sequence-diagram-decorator.png
-    design-rationale.md
-README.md
-LICENSE
-
-Design Rationale (Summary)
-
-The project uses structural design patterns to modularize and extend the system efficiently:
-
-Decorator Pattern – Enables runtime addition of features without changing the core player.
-
-Composite Pattern – Allows nested playlist structures that can contain both media files and other playlists.
-
-Adapter Pattern – Integrates multiple types of media sources into a common format.
-
-Facade Pattern – Simplifies user interaction by centralizing operations through the MediaEngine.
-
-These design choices make the system flexible, testable, and easier to maintain as new media formats and features are added.
